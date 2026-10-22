@@ -15,3 +15,6 @@ dist/
 .vscode/
 .idea/
 *.swp
+
+#fichier volumineux
+data/raw/
