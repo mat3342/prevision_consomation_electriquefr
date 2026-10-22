@@ -1,0 +1,17 @@
+# Dépendances
+node_modules/
+venv/
+__pycache__/
+
+# Fichiers générés
+build/
+dist/
+*.log
+
+# Secrets et réglages locaux
+.env
+
+# Fichiers d'éditeur et du système
+.vscode/
+.idea/
+*.swp
