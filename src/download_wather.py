@@ -1,7 +1,5 @@
 import openmeteo_requests
-import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 import requests_cache
 from retry_requests import retry
 from pathlib import Path
@@ -102,10 +100,6 @@ def request_avec_attente(debut, fin, villes, essais_max=10):
 
 
 
-# Setup the Open-Meteo API client with cache and retry on error
-cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
-retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
-openmeteo = openmeteo_requests.Client(session = retry_session)
 
 
 def min_date_in_metrop_file()->str:
@@ -167,16 +161,22 @@ def request_y_by_y (fin:str,debut="2012-01-01") :
         d = fin_annee + relativedelta(days=1) 
 
 
+def main():
+    # Setup the Open-Meteo API client with cache and retry on error
+    cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
+    retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
+    openmeteo = openmeteo_requests.Client(session = retry_session)
+
+
+
+    auj=date.today()
+    fin = (auj - timedelta(days=6)).isoformat()
+
+    request_y_by_y(fin)
+    print("Toutesles données météo ont bien été téléchargé")
 
 
 
 
-auj=date.today()
-fin = (auj - timedelta(days=6)).isoformat()
-
-request_y_by_y(fin)
-print("Toutesles données météo ont bien été téléchargé")
 
 
-
-   
